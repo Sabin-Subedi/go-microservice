@@ -2,12 +2,24 @@ version: '3.7'
 
 services:
   broker-service:
+    container_name: broker-service
     build:
       context: .
       dockerfile: ./docker/broker-service.dockerfile
     restart: always
     ports:
       - "8080:80"
+    deploy:
+      mode: replicated
+      replicas: 1
+  frontend-service:
+    container_name: frontend-service
+    build:
+      context: .
+      dockerfile: ./docker/frontend.dockerfile
+    restart: always
+    ports:
+      - "80:80"
     deploy:
       mode: replicated
       replicas: 1
